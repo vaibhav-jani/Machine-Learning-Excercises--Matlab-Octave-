@@ -40,17 +40,25 @@ grad = zeros(n);
 %
 
 h = sigmoid(X * theta);
-thetaFiltered = [0; theta(2:end)];
+
+thetaNoBias = theta(2:end);
 
 costPositive = -y' * log(h);
+
 costNegative =  (1 - y') * log(1 - h);
-reg = (lambda / (2*m)) * (thetaFiltered' * thetaFiltered);
+
+reg = (lambda / (2*m)) * (sum(sum(thetaNoBias .^ 2)));
 
 J = (1/m) * (costPositive - costNegative) + reg;
 
-grad = (1/m) * (X' * (h - y)) + ((lambda / m) * thetaFiltered);
+thetaZoroBias = [0; thetaNoBias];
+
+gradReg = ((lambda / m) * thetaZoroBias);
+
+grad = (1/m) * (X' * (h - y)) + gradReg;
 
 % =============================================================
 
 grad = grad(:);
+
 end
