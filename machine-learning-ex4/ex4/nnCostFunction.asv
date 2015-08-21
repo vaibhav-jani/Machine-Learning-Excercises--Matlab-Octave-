@@ -104,10 +104,14 @@ for i = 1:m
             
     end;
     
-    A = (sigmoidGradient(z2))';
+    size((Theta2'*delta3))
+    
+    size((sigmoidGradient(z2))')
+    
+    A = ;
     
     % computing delta2
-    delta2 = (Theta2'*delta3) .* [0; A];
+    delta2 = (Theta2'*delta3) .* (sigmoidGradient(z2))'[0; A];
     
     % reseting biased unit to one
     % delta2 = [1; delta2(2:end)];
@@ -121,28 +125,23 @@ for i = 1:m
             
 end;
 
+Theta1_grad = Theta1_grad/m;
+
+Theta2_grad = Theta2_grad/m;
+
 J = J/m;
 
-Theta1NoBias = Theta1(:, 2:end);
-Theta2NoBias = Theta2(:, 2:end);
-
-Theta1ZeroBias = [ zeros(size(Theta1, 1), 1) Theta1NoBias ];
-Theta2ZeroBias = [ zeros(size(Theta2, 1), 1) Theta2NoBias ];
-
-reg1_grad = (lambda / m) * Theta1ZeroBias;
-reg2_grad = (lambda / m) * Theta2ZeroBias;
-
-Theta1_grad = Theta1_grad/m + reg1_grad;
-
-Theta2_grad = Theta2_grad/m + reg2_grad;
-
 % Adding first regularised parameter
+
+Theta1NoBias = Theta1(:, 2:end);
 
 reg1 = (lambda / (2 * m)) * sum(sum(Theta1NoBias .^ 2));
 
 J = J + reg1;
 
 % Adding second regularised parameter
+
+Theta2NoBias = Theta2(:, 2:end);
 
 reg2 = (lambda / (2 * m)) * (sum(sum(Theta2NoBias .^ 2)));
 

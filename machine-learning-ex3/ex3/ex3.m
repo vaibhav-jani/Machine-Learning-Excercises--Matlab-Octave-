@@ -67,7 +67,7 @@ pred = predictOneVsAll(all_theta, X);
 
 fprintf('\nTraining Set Accuracy: %f\n', mean(double(pred == y)) * 100);
 
-%% ================= Part 4: test added by Me(Vaibhav Jani) =========================
+%% ================= Part 4: test added by Me(Vaibhav A. Jani) =========================
 % New...
 
 fprintf('Program paused. Press enter to continue.\n');
